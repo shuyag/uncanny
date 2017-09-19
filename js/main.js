@@ -43,10 +43,31 @@
 
 // })(jQuery);
 
-window.onload = choosePic;
 
-var myPix = new Array("images/H.City.jpg", "images/M.City.jpg", "images/L.City.jpg");
+// Random Picture Function 
+//_______________________________________________________________________________________
+// window.onload = choosePic;
 
-function choosePic() {
-	var randomNum = Math.floor(Math.random() * myPix.length);
-	document.getElementById("myPicture").src = myPix[randomNum];
+// var myPix = new Array("images/H.City.jpg", "images/M.City.jpg", "images/L.City.jpg");
+
+// function choosePic() {
+// 	var randomNum = Math.floor(Math.random() * myPix.length);
+// 	document.getElementById("myPicture").src = myPix[randomNum];
+//________________________________________________________________________________________
+
+var n = 0;
+
+function changeImage() {
+  if ( n == 0 ) {
+    document.images["flag"].src = "/images/program/js/forms/scotflag.png";
+    n = 1;
+  }
+  else if ( n == 1 ) {
+    document.images["flag"].src = "/images/program/js/forms/engflag.png";
+    n = 2;
+  }
+  else {
+    document.images["flag"].src = "/images/program/js/forms/walesflag.png";
+    n = 0;
+  }
+}
