@@ -74,6 +74,6 @@
       if( rnd == 0 ) {
         rnd =1;
       }
-      html_code = '<img class= src="' + myImages1[rnd] + '" />"'; 
+      html_code = '<img class="who" src="' + myImages1[rnd] + '" />"'; 
       document.write(html_code);
     }
