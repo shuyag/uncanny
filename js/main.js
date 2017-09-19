@@ -55,19 +55,25 @@
 // 	document.getElementById("myPicture").src = myPix[randomNum];
 //________________________________________________________________________________________
 
-var n = 0;
 
-function changeImage() {
-  if ( n == 0 ) {
-    document.images["flag"].src = "/images/program/js/forms/scotflag.png";
-    n = 1;
-  }
-  else if ( n == 1 ) {
-    document.images["flag"].src = "/images/program/js/forms/engflag.png";
-    n = 2;
-  }
-  else {
-    document.images["flag"].src = "/images/program/js/forms/walesflag.png";
-    n = 0;
-  }
-}
+ function randomImg1() {
+      var myImages1 = new Array ();
+      myImages1[1] = "images/1.jpg";
+      myImages1[2] = "images/2.jpg";
+      myImages1[3] = "images/3.jpg";
+      myImages1[4] = "images/4.jpg";
+      myImages1[5] = "images/5.jpg";
+      myImages1[6] = "images/6.jpg";
+      myImages1[7] = "images/7.jpg";
+      myImages1[8] = "images/8.jpg";
+      myImages1[9] = "images/9.jpg";
+      myImages1[10] = "images/10.jpg";
+      myImages1[11] = "images/11.jpg";
+
+      var rnd = Math.floor( Math.random() * myImages1.length );
+      if( rnd == 0 ) {
+        rnd =1;
+      }
+      html_code = '<img class="who" src="' + myImages1[rnd] + '" />"; 
+      document.write(html_code);
+    }
