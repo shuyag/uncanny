@@ -1,0 +1,6 @@
+{
+  "rules": {
+    ".read": true,
+    ".write": true // set both to true for public access in the meantime.
+  }
+}
