@@ -50,14 +50,18 @@ function randomImg(){
 
 /* here be the mouse tracking*
 pageX gets mouse position from leftmost edge of window, pageY does the same from the top. 
-Basically as long as there's a window open, this will be looking for mouse movement and send coordinates to console*/
+Basically as long as there's a window open, this will be looking for mouse movement and send coordinates to console
+if(timer.stage1 && !timer.stage2 makes sure that we only record mouse movements in between the button press of NEXT to the hover
+selection to only see the selection path and reduce noise.*/
 
  function handler(e) {
+ if(timer.stage1 && !timer.stage2){
  	e = e || window.event;
 
  	var pageX = e.pageX;
  	var pageY = e.pageY;
     console.log(pageX, pageY);
+}
 }
 
 document.addEventListener('mousemove', handler);
