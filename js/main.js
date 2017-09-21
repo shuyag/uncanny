@@ -48,6 +48,10 @@ function randomImg(){
     document.getElementById("bg").src= "./images/" + imgName2 ;
  }
 
+/* here be the mouse tracking*
+pageX gets mouse position from leftmost edge of window, pageY does the same from the top. 
+Basically as long as there's a window open, this will be looking for mouse movement and send coordinates to console*/
+
  function handler(e) {
  	e = e || window.event;
 
@@ -56,5 +60,4 @@ function randomImg(){
     console.log(pageX, pageY);
 }
 
-if (document.attachEvent) document.attachEvent('mouseexit', handler);
-else document.addEventListener('mousemove', handler);
+document.addEventListener('mousemove', handler);
