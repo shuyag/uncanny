@@ -1,66 +1,58 @@
+
 <!DOCTYPE HTML>
-<!--
-	Prism by TEMPLATED
-	templated.co @templatedco
-	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
--->
-<html>
+
 	<head>
 		<title>CS 279 HW 2</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!--[if lte IE 8]><script src="js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="css/main.css" />
-		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie9.css" /><![endif]-->
+		<script
+		src="https://code.jquery.com/jquery-3.2.1.min.js"
+		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+		crossorigin="anonymous"></script>
+		
+		<!-- FIREBASE --> 
+		<script src="https://www.gstatic.com/firebasejs/4.3.1/firebase.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/4.3.1/firebase-app.js"></script>>
+		<script src="https://www.gstatic.com/firebasejs/4.3.1/firebase-database.js"></script>
+		
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+		<script>
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyBnc3yie_jteM5uHEHkOTfvUItxF4QmtuM",
+			authDomain: "uncanny-f64d1.firebaseapp.com",
+			databaseURL: "https://uncanny-f64d1.firebaseio.com",
+			projectId: "uncanny-f64d1",
+			storageBucket: "uncanny-f64d1.appspot.com",
+			messagingSenderId: "1000109360036"
+		};
+		firebase.initializeApp(config);
+		</script>
+		<!-- END FIREBASE SETUP -->
+
+		<script type="text/javascript" src="js/main.js"></script>
 	</head>
-	<body>
 
-		<!-- Banner -->
-			<section id="banner">
-				<div class="inner split">
-					<section>
-						<h2>Welcome to our web server for CS279, HW 2</h2>
-					</section>
-					<section>
-						<p>This is where we will set up and run our experiment. More to come!</p>
-						<ul class="actions">
-							<li><a href="https://sites.google.com/view/cs279au17/hw-2-controlled-experiments?authuser=0" class="button special">See Assignment</a></li>
-						</ul>
-					</section>
-				</div>
-			</section>
-
-		<!-- One -->
-			<section id="one" class="wrapper">
-				<div class="inner split">
-					<section>
-						<h2>So we're designing an experiment.</h2>
-						<p>We're interested in some of these things:</p>
-					</section>
-					<section>
-						<ul class="checklist">
-							<li>Uncanny valley</li>
-							<li>Context</li>
-							<li>Stressors</li>
-						</ul>
-					</section>
-				</div>
-			</section>
+<body>
 
 
-		<!-- Footer -->
-			<footer id="footer">
-				<div class="copyright">
-					&copy; CS279, Harvard University
-				</div>
-			</footer>
+	<div id='footer'>
+		<div id='next' align='center' onclick="randomImg();">NEXT</div>
+	</div>
+	<div class='test'>
+	<div class='modal'>
+		<h2>Welcome to Uncanny Valley Simulator v2.0 ! ! !</h2>
+		<p>We're going to show you an image of a face on the screen.</p>
+		<p><strong>It's your job to move your mouse to one of the boxes in the corner that corresponds with whether you think the face is a robot or a human.</strong> When you've selected that, make sure to click the next button to get the next face.</p>
+		<p>Please try to move as quickly as possible. You may use a mouse or a trackpad.</p>
+		<p>Good luck!</p>
+	</div>
+	<img id="bg" src=""></img>>
+	<img id="face" src=""></img>
+	<input id="robot" class='btn' type="button" value="Robot" />
+	<input id="human" class='btn' type="button" value="Human" />
+	</div>
 
-		<!-- Scripts -->
-			<script src="js/jquery.min.js"></script>
-			<script src="js/skel.min.js"></script>
-			<script src="js/util.js"></script>
-			<!--[if lte IE 8]><script src="js/ie/respond.min.js"></script><![endif]-->
-			<script src="js/main.js"></script>
-
-	</body>
+</body>
 </html>
