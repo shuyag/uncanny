@@ -51,8 +51,8 @@ function randomImg(){
  function handler(e) {
  	e = e || window.event;
 
- 	var X = e.pageX;
- 	var Y = e.pageY;
+ 	var pageX = e.pageX;
+ 	var pageY = e.pageY;
 
     // IE 8
     if (pageX === undefined) {
