@@ -82,7 +82,6 @@ body {
 	text-transform: uppercase;
 	background: #CCC;
 	color: #333;
-	transition: 0.3s;
 }
 .btn:hover {
 	background: #008000;

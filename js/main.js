@@ -35,6 +35,7 @@ $('document').ready(function(){
 		trial.stage1 = false, trial.stage2 = false;
 		trial.start = 0, trial.responseTime = 0, trial.movementTime = 0; 
 		trial.coordinates = []
+		$('.btn').css({'color': '#333', 'background-color': '#CCC'})
 		trial.stage1 = true;
 		trial.start = Date.now(); console.log(trial.start);
 	});
@@ -47,6 +48,7 @@ $('document').ready(function(){
 	$('.btn').mouseenter(function(){
 		if(!trial.stage2){
 			trial.stage2 = true;
+			$(this).css({'color': 'white', 'background-color': '#008000'})
 			trial.movementTime = Date.now() - trial.start - trial.responseTime;
 			trial.choice = $(this).attr("id");
 			console.log(trial.movementTime);
@@ -86,7 +88,7 @@ selection to only see the selection path and reduce noise.*/
 
 		var pageX = e.pageX;
 		var pageY = e.pageY;
-		console.log(pageX, pageY);
+		//console.log(pageX, pageY);
 		(trial.coordinates).push({x: pageX, y: pageY})
 	}
 }
