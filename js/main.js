@@ -47,3 +47,21 @@ function randomImg(){
     var imgName2 = "City" + randomNumber2 + ".jpg";
     document.getElementById("bg").src= "./images/" + imgName2 ;
  }
+
+ function handler(e) {
+ 	e = e || window.event;
+
+ 	var X = e.pageX;
+ 	var Y = e.pageY;
+
+    // IE 8
+    if (pageX === undefined) {
+    	pageX = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+    	pageY = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+    }
+
+    console.log(pageX, pageY);
+}
+
+if (document.attachEvent) document.attachEvent('mouseexit', handler);
+else document.addEventListener('mousemove', handler);

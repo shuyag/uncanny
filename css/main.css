@@ -2,6 +2,10 @@ body {
 	overflow: hidden;
 }
 
+.test img{
+	width: 100%;
+	height: auto;
+}
 #footer {
 	position: absolute;
 	bottom: 0;
@@ -64,5 +68,5 @@ body {
 	transition: 0.3s;
 }
 .btn:hover {
-	background: #AAA;
+	background: #008000;
 }
