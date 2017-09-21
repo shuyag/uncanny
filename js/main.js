@@ -4,7 +4,8 @@ var timer =
 	'responseTime': 0,
 	'movementTime': 0, 
 	'stage1': false,
-	'stage2': false
+	'stage2': false,
+	'coordinates': []
 }
 //var database = firebase.database();
 var d = new Date();
@@ -14,6 +15,7 @@ d
 	$('#next').click(function(){
 		timer.stage1 = false, timer.stage2 = false;
 		timer.start = 0, timer.responseTime = 0, timer.movementTime = 0; 
+		timer.coordinates = []
 		timer.stage1 = true;
 		timer.start = Date.now(); console.log(timer.start);
 	});
@@ -55,13 +57,14 @@ if(timer.stage1 && !timer.stage2 makes sure that we only record mouse movements 
 selection to only see the selection path and reduce noise.*/
 
  function handler(e) {
- if(timer.stage1 && !timer.stage2){
- 	e = e || window.event;
+	if(timer.stage1 && !timer.stage2){
+		e = e || window.event;
 
- 	var pageX = e.pageX;
- 	var pageY = e.pageY;
-    console.log(pageX, pageY);
-}
+		var pageX = e.pageX;
+		var pageY = e.pageY;
+		console.log(pageX, pageY);
+		(timer.coordinates).push({x: pageX, y: pageY})
+	}
 }
 
 document.addEventListener('mousemove', handler);
