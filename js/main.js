@@ -10,7 +10,8 @@ var trial =
 	'movementTime': 0, 
 	'stage1': false,
 	'stage2': false,
-	'coordinates': []
+	'coordinates': [], 
+	'trialNum': 0
 }
 
 var database = firebase.database();
@@ -32,6 +33,7 @@ function writeUserData(input) {
 $('document').ready(function(){
 
 	$('#next').click(function(){
+		trial.trialNum++;
 		trial.stage1 = false, trial.stage2 = false;
 		trial.start = 0, trial.responseTime = 0, trial.movementTime = 0; 
 		trial.coordinates = []
@@ -45,17 +47,24 @@ $('document').ready(function(){
 			trial.responseTime = Date.now() - trial.start; console.log(trial.responseTime)
 		}
 	});
-	$('.btn').mouseenter(function(){
+	$('.btn').click(function(){
 		if(!trial.stage2){
 			trial.stage2 = true;
 			$(this).css({'color': 'white', 'background-color': '#008000'})
 			trial.movementTime = Date.now() - trial.start - trial.responseTime;
 			trial.choice = $(this).attr("id");
 			console.log(trial.movementTime);
-			
 			// write to database
 			writeUserData(trial);
-			console.log(trial)
+			console.log(trial);
+			if(trial.trialNum >=50)
+			{
+				$('#info').text('You are done! Feel free to exit this application.');
+				$('#info').css({
+					'z-index': 9999, 
+				})
+			}
+
 		}
 	})
 	/* 
