@@ -11,7 +11,8 @@ var trial =
 	'stage1': false,
 	'stage2': false,
 	'coordinates': [], 
-	'trialNum': 0
+	'trialNum': 0,
+	'write': true
 }
 
 var database = firebase.database();
@@ -55,7 +56,8 @@ $('document').ready(function(){
 			trial.choice = $(this).attr("id");
 			console.log(trial.movementTime);
 			// write to database
-			writeUserData(trial);
+			if(trial.write)
+				writeUserData(trial);
 			console.log(trial);
 			if(trial.trialNum >=50)
 			{
