@@ -105,3 +105,50 @@ selection to only see the selection path and reduce noise.*/
 }
 
 document.addEventListener('mousemove', handler);
+
+// DATA FUCKERY
+
+for(user in userData.users){
+	var maxYs = []
+	for(trial in userData.users[user]){
+		trialObj = userData.users[user][trial]
+		console.log(trialObj)
+		maxY = 0;
+		first = { 
+			'x': (trialObj.trajectory)[0].x, 
+			'y': (trialObj.trajectory)[0].y 
+		}
+		//console.log('FIRST: ('+first.x+','+first.y+')')
+		last = { 
+				'x': (trialObj.trajectory)[(trialObj.trajectory).length-1].x, 
+				'y': (trialObj.trajectory)[(trialObj.trajectory).length-1].y 
+			}
+		for(i in trialObj.trajectory){
+			point = trialObj.trajectory[i]
+			//console.log('old('+point.x+','+point.y+')')
+			point.x = point.x-first.x
+			point.y = first.y-point.y
+			//console.log('new('+point.x+','+point.y+')')
+		}
+		lastPoint = (trialObj.trajectory)[(trialObj.trajectory).length-1]
+		theta = Math.atan2(lastPoint.y,lastPoint.x)
+		for(j in trialObj.trajectory){
+			if(j != 0){
+				point = trialObj.trajectory[j]
+				theta_0 = Math.atan2(point.y,point.x)
+				if(isNaN(theta_0))
+					theta_0 = last.x - first.x > 0 ? 0 : Math.PI
+				r = Math.sqrt(point.x**2 + point.y**2)
+				theta_new = theta_0 < Math.PI/2 ? theta_0-theta : theta_0+theta
+				point.x = r*Math.cos(theta_new)
+				point.y = r*Math.sin(theta_new)
+				if(maxY < Math.abs(point.y))
+					maxY = Math.abs(point.y)
+			}
+		}
+		trialObj.maxHeight = maxY;
+		if(trial.responseTime < 1500)
+			maxYs.push(maxY);
+	}
+	userData.users[user].avgY = maxYs.reduce(function(a,b){ return a+b; }) / maxYs.length;
+}
