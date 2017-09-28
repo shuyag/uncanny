@@ -114,7 +114,7 @@ for(user in userData.users){
 	for(trial in userData.users[user]){
 		trialObj = userData.users[user][trial]
 		console.log(trialObj)
-		if(trialObj.choice == 'robot'){
+		//if(trialObj.choice == 'robot'){
 		maxY = 0;
 		first = { 
 			'x': (trialObj.trajectory)[0].x, 
@@ -135,32 +135,34 @@ for(user in userData.users){
 		firstPoint = (trialObj.trajectory)[0]
 		lastPoint = (trialObj.trajectory)[(trialObj.trajectory).length-1]
 		theta = Math.atan2(lastPoint.y,lastPoint.x)
-		console.log('THETA: '+theta)
+		//console.log('THETA: '+theta)
 		for(j in trialObj.trajectory){
 			if(j != 0){
 				point = trialObj.trajectory[j]
-				console.log('('+point.x+','+point.y+')')
+				//console.log('('+point.x+','+point.y+')')
 				theta_0 = Math.atan2(point.y,point.x)
 				//if(theta_0 == Math.PI/2)
 				//if(isNaN(theta_0))
 				//	theta_0 = last.x - first.x > 0 ? 0 : Math.PI
-				console.log('theta0: '+theta_0)
+				//console.log('theta0: '+theta_0)
 				r = Math.sqrt(point.x**2 + point.y**2)
-				console.log('r: '+r)
-				theta_new = (lastPoint.x - firstPoint.x) > 0 ? theta_0-(theta%(Math.PI/2)) : theta_0+(theta%(Math.PI/2))
-				console.log('theta_new: '+theta_new)
+				//console.log('r: '+r)
+				theta_new = (lastPoint.x - firstPoint.x) > 0 ? theta_0-theta : theta_0+(Math.PI-theta)
+				//console.log('theta_new: '+theta_new)
 				point.x = r*Math.cos(theta_new)
 				point.y = r*Math.sin(theta_new)
-				console.log('NEW: ('+point.x+','+point.y+')')
+				//console.log('NEW: ('+point.x+','+point.y+')')
 				if(maxY < Math.abs(point.y))
 					maxY = Math.abs(point.y)
-				console.log('-------------')
+				//console.log('-------------')
 			}
+
+			
 		}
 		trialObj.maxHeight = maxY;
 		if(trial.responseTime < 1500)
 			maxYs.push(maxY);
-		}
+		//}
 		//count++;
 	}
 	userData.users[user].avgY = maxYs.reduce(function(a,b){ return a+b; }) / maxYs.length;
