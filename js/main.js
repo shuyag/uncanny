@@ -107,9 +107,18 @@ selection to only see the selection path and reduce noise.*/
 document.addEventListener('mousemove', handler);
 
 // DATA FUCKERY
-
+userSummaries = {
+	
+}
 for(user in userData.users){
-	var maxYs = []
+	var summary = {
+		'congruent': [],
+		'incongruent': [],
+		'neutral': []
+	}
+	congruent = []
+	incongruent = []
+	neutral = []
 	//var count = 0
 	for(trial in userData.users[user]){
 		trialObj = userData.users[user][trial]
@@ -156,14 +165,25 @@ for(user in userData.users){
 					maxY = Math.abs(point.y)
 				//console.log('-------------')
 			}
-
-			
 		}
 		trialObj.maxHeight = maxY;
-		if(trial.responseTime < 1500)
-			maxYs.push(maxY);
-		//}
-		//count++;
+		if(trialObj.responseTime < 1500){
+			if((trialObj.background == 1 && trialObj.face<4) || (trialObj.background == 3 && trialObj.face>6))
+				(summary.incongruent).push(maxY);
+			else if((trialObj.background == 3 && trialObj.face<4) || (trialObj.background == 1 && trialObj.face>6))
+				(summary.congruent).push(maxY);
+			else
+				(summary.neutral).push(maxY);
+		}
+		userSummaries[user] = summary
 	}
-	userData.users[user].avgY = maxYs.reduce(function(a,b){ return a+b; }) / maxYs.length;
 }
+
+for(user in userSummaries){
+	for(stat in userSummaries[user]){
+		statArr = userSummaries[user][stat]
+		console.log(statArr)
+		userSummaries[user][stat+'_avg'] = statArr.reduce(function(sum, a,i,ar) { sum += a;  return i==ar.length-1?(ar.length==0?0:sum/ar.length):sum},0);
+	}
+}
+dataString = JSON.stringify(userSummaries)
