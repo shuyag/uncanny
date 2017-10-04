@@ -183,7 +183,9 @@ for(user in userSummaries){
 	for(stat in userSummaries[user]){
 		statArr = userSummaries[user][stat]
 		console.log(statArr)
-		userSummaries[user][stat+'_avg'] = statArr.reduce(function(sum, a,i,ar) { sum += a;  return i==ar.length-1?(ar.length==0?0:sum/ar.length):sum},0);
+		userSummaries[user][stat+'_avg'] = arr.mean(statArr)
+		userSummaries[user][stat+'_variance'] = arr.variance(statArr)
+		userSummaries[user][stat+'_stddev'] = arr.standardDeviation(statArr)
 	}
 }
 dataString = JSON.stringify(userSummaries)
