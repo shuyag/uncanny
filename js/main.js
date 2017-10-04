@@ -105,3 +105,85 @@ selection to only see the selection path and reduce noise.*/
 }
 
 document.addEventListener('mousemove', handler);
+
+// DATA FUCKERY
+userSummaries = {
+	
+}
+for(user in userData.users){
+	var summary = {
+		'congruent': [],
+		'incongruent': [],
+		'neutral': []
+	}
+	congruent = []
+	incongruent = []
+	neutral = []
+	//var count = 0
+	for(trial in userData.users[user]){
+		trialObj = userData.users[user][trial]
+		console.log(trialObj)
+		//if(trialObj.choice == 'robot'){
+		maxY = 0;
+		first = { 
+			'x': (trialObj.trajectory)[0].x, 
+			'y': (trialObj.trajectory)[0].y 
+		}
+		//console.log('FIRST: ('+first.x+','+first.y+')')
+		last = { 
+				'x': (trialObj.trajectory)[(trialObj.trajectory).length-1].x, 
+				'y': (trialObj.trajectory)[(trialObj.trajectory).length-1].y 
+			}
+		for(i in trialObj.trajectory){
+			point = trialObj.trajectory[i]
+			//console.log('old('+point.x+','+point.y+')')
+			point.x = point.x-first.x
+			point.y = first.y-point.y
+			//console.log('new('+point.x+','+point.y+')')
+		}
+		firstPoint = (trialObj.trajectory)[0]
+		lastPoint = (trialObj.trajectory)[(trialObj.trajectory).length-1]
+		theta = Math.atan2(lastPoint.y,lastPoint.x)
+		//console.log('THETA: '+theta)
+		for(j in trialObj.trajectory){
+			if(j != 0){
+				point = trialObj.trajectory[j]
+				//console.log('('+point.x+','+point.y+')')
+				theta_0 = Math.atan2(point.y,point.x)
+				//if(theta_0 == Math.PI/2)
+				//if(isNaN(theta_0))
+				//	theta_0 = last.x - first.x > 0 ? 0 : Math.PI
+				//console.log('theta0: '+theta_0)
+				r = Math.sqrt(point.x**2 + point.y**2)
+				//console.log('r: '+r)
+				theta_new = (lastPoint.x - firstPoint.x) > 0 ? theta_0-theta : theta_0+(Math.PI-theta)
+				//console.log('theta_new: '+theta_new)
+				point.x = r*Math.cos(theta_new)
+				point.y = r*Math.sin(theta_new)
+				//console.log('NEW: ('+point.x+','+point.y+')')
+				if(maxY < Math.abs(point.y))
+					maxY = Math.abs(point.y)
+				//console.log('-------------')
+			}
+		}
+		trialObj.maxHeight = maxY;
+		if(trialObj.responseTime < 1500){
+			if((trialObj.background == 1 && trialObj.face<4) || (trialObj.background == 3 && trialObj.face>6))
+				(summary.incongruent).push(maxY);
+			else if((trialObj.background == 3 && trialObj.face<4) || (trialObj.background == 1 && trialObj.face>6))
+				(summary.congruent).push(maxY);
+			else
+				(summary.neutral).push(maxY);
+		}
+		userSummaries[user] = summary
+	}
+}
+
+for(user in userSummaries){
+	for(stat in userSummaries[user]){
+		statArr = userSummaries[user][stat]
+		console.log(statArr)
+		userSummaries[user][stat+'_avg'] = statArr.reduce(function(sum, a,i,ar) { sum += a;  return i==ar.length-1?(ar.length==0?0:sum/ar.length):sum},0);
+	}
+}
+dataString = JSON.stringify(userSummaries)
